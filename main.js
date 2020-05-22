@@ -17,19 +17,36 @@ $('#btn-search').click(function(){
         'data': {
             'api_key':'239041d19fa5a16a25dff0efb29a6dec',
             'query': search ,
+            'language': 'pt',
         },
         'success': function(data){
             var films = data.results
             console.log(films);
+            //con il ciclo for recupero gli oggetti dentro l'array
             for (var i = 0; i < films.length; i++) {
-                var filmSearch = films[i]
-                console.log(filmSearch);
-            }
+                var filmResults = films[i]
+                console.log(filmResults);
+                //dall'OGGETTO prendo le informazioni che mi servono
+                var nameFilm = filmResults.title;
+                var originalName = filmResults.original_title;
+                var originalLg = filmResults.original_language;
+                var averageVote = filmResults.vote_average;
+                console.log(nameFilm);
+                console.log(originalName);
+                console.log(originalLg);
+                console.log(averageVote);
+                 $('ul').append("<li>" + nameFilm + "</li>");
+                 $('ul').append("<li>" + originalName
+                  + "</li>");
+                 $('ul').append("<li>" +'lingua original: '+ originalLg
+                  + "</li>");
+                 $('ul').append("<li>" + 'voto médio: ' + averageVote
+                  + "</li>");
+            } //ciclo for
         },
         'error': function(){
-
+            alert('error')
         }
-
     }) //ajax
 
 
