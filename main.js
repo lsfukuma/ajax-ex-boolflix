@@ -18,8 +18,13 @@ $('#btn-search').click(function(){
             'api_key':'239041d19fa5a16a25dff0efb29a6dec',
             'query': search ,
         },
-        'success': function(){
-            
+        'success': function(data){
+            var films = data.results
+            console.log(films);
+            for (var i = 0; i < films.length; i++) {
+                var filmSearch = films[i]
+                console.log(filmSearch);
+            }
         },
         'error': function(){
 
