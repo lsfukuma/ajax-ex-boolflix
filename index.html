@@ -19,12 +19,18 @@
 
             </div>
         </header>
-        <main>
-            <ul>
-                <li></li>
-            </ul>
+        <main class="container">
+
 
         </main>
+        <script id="results-template" type="text/x-handlebars-template">
+            <ul class="card">
+                <li>{{title}}</li>
+                <li>{{title-original}}</li>
+                <li>[{{original-language}}]</li>
+                <li>{{average-vote}}</li>
+            </ul>
+        </script>
         <script src="main.js" charset="utf-8"></script>
     </body>
 </html>
