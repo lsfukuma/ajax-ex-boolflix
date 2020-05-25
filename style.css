@@ -41,8 +41,15 @@ ul {
 li {
     color: white;
     padding: 20px;
+    overflow-y: hidden;
 }
 
-.card {
+.flag-country img {
+    height: 30px;
+    width: 40px;
+    object-fit: contain;
+}
 
+.fas {
+    color: yellow;
 }
