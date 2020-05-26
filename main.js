@@ -1,7 +1,7 @@
 //
 var ajaxUrl = 'https://api.themoviedb.org/3/'
 var apiKey = '239041d19fa5a16a25dff0efb29a6dec'
-var posterUrl = 'https://image.tmdb.org/t/p/w300 '
+var posterUrl = 'https://image.tmdb.org/t/p/w300'
 //ricerca cliccando sul pulsante search
 $('.btn-search').click(function(){
     search();
@@ -18,10 +18,10 @@ $('.input-search').keyup(function(event){
 var source   = $("#results-template").html();
 var template = Handlebars.compile(source)
 
-//funzione per trovare il film e anche le serie
+//funzione per trovare i film e anche le serie
 function search() {
     var search = $('.input-search').val().trim()
-    resetInput(); //richiamo la funzione per resettare l'input
+    resetInput(); //richiamo la funzione per resettare l'input e l html
     //controllo che l'utente abbia digitato qualcosa
     if (search.length > 0) {
         //faccio partire una chiamata ajax a tmdb
@@ -47,14 +47,14 @@ function search() {
                     var posterMovie = moviesResults.poster_path
                     //Handlebars
                     var context = {
-                        'poster': posterUrl + posterMovie,
+                        'poster': poster(posterMovie),
                         'title': nameMovie,
                         'title-original': originalName,
                         'original-language': flags(originalLg),
                         'average-vote': rating(averageVote)
                     };
                     //append handlebars
-                    var html    = template(context);
+                    var html = template(context);
                     $('.container').append(html)
                 } //ciclo for
             },
@@ -82,7 +82,7 @@ function search() {
                     var averageVote = seriesResults.vote_average;
                     var posterSerie = seriesResults.poster_path
                     var context = {
-                        'poster': posterUrl + 'posterSerie' ,
+                        'poster': poster(posterSerie) ,
                         'title': nameSerie,
                         'title-original': originalNameSerie,
                         'original-language': flags(originalLg) ,
@@ -133,3 +133,11 @@ function flags(language){
     return language;
     }
 };
+
+//funzione per i poster
+function poster(urlposter){
+    if (urlposter != null) {
+        return  posterUrl + urlposter;
+    }
+        return 'image not available';
+}
