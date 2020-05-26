@@ -1,7 +1,7 @@
 //
 var ajaxUrl = 'https://api.themoviedb.org/3/'
 var apiKey = '239041d19fa5a16a25dff0efb29a6dec'
-var posterUrl = 'https://image.tmdb.org/t/p/w300'
+
 //ricerca cliccando sul pulsante search
 $('.btn-search').click(function(){
     search();
@@ -12,7 +12,11 @@ $('.input-search').keyup(function(event){
     if (event.which == 13) {
         search();
     }
-})
+});
+
+//quando vado sulla copertina
+// $('.image-result').mouseenter()
+
 
 //handlebars
 var source   = $("#results-template").html();
@@ -23,7 +27,7 @@ function search() {
     var search = $('.input-search').val().trim()
     resetInput(); //richiamo la funzione per resettare l'input e l html
     //controllo che l'utente abbia digitato qualcosa
-    if (search.length > 0) {
+    if (search.length > 1) {
         //faccio partire una chiamata ajax a tmdb
         $.ajax({
             'url': ajaxUrl + 'search/movie',
@@ -38,7 +42,6 @@ function search() {
                 //con il ciclo for recupero gli oggetti dentro l'array
                 for (var i = 0; i < movies.length; i++) {
                     var moviesResults = movies[i]
-                    console.log(moviesResults);
                     //dall'OGGETTO prendo le informazioni che mi servono
                     var nameMovie = moviesResults.title;
                     var originalName = moviesResults.original_title;
@@ -48,7 +51,7 @@ function search() {
                     //Handlebars
                     var context = {
                         'poster': poster(posterMovie),
-                        'title': nameMovie,
+                        'title': movies[i].title,
                         'title-original': originalName,
                         'original-language': flags(originalLg),
                         'average-vote': rating(averageVote)
@@ -62,6 +65,7 @@ function search() {
                 alert('error')
             }
         }) //ajax film
+        //chiamata ajax per le serie tv
         $.ajax({
             'url': ajaxUrl + 'search/tv',
             'method': 'GET',
@@ -129,15 +133,15 @@ function flags(language){
     var flagsLanguage = ['en', 'fr' , 'it' , 'ru' , 'pt' , 'de' , 'es' , 'da' , 'ja']
     if(flagsLanguage.includes(language)){
         return '<img src="img/' + language + '.svg" alt="">';
-    } else {
-    return language;
     }
+    return language;
 };
 
 //funzione per i poster
 function poster(urlposter){
+    var posterUrl = 'https://image.tmdb.org/t/p/w300'
     if (urlposter != null) {
         return  posterUrl + urlposter;
     }
         return 'image not available';
-}
+};

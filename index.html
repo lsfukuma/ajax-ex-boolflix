@@ -17,7 +17,6 @@
             <div class="header-right">
                 <input class="input-search"type="text" >
                 <button class="btn-search"> Search </button>
-
             </div>
         </header>
         <main class="container">
@@ -25,13 +24,19 @@
 
         </main>
         <script id="results-template" type="text/x-handlebars-template">
-            <ul class="card">
-                <li><img class="image-result" src="{{poster}}" alt=""></li>
-                <li>{{title}}</li>
-                <li>{{title-original}}</li>
-                <li class="flag-country">{{{original-language}}}</li>
-                <li>{{{average-vote}}}</li>
-            </ul>
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="card-img">
+                        <img class="image-result" src="{{poster}}" alt="{{poster}}">
+                    </div>
+                    <ul class="flip-card-back">
+                        <li>{{title}}</li>
+                        <li>{{title-original}}</li>
+                        <li class="flag-country">{{{original-language}}}</li>
+                        <li>{{{average-vote}}}</li>
+                    </ul>
+                </div>
+            </div>
         </script>
         <script src="main.js" charset="utf-8"></script>
     </body>
