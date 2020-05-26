@@ -35,13 +35,14 @@ function search() {
             'data': {
                 'api_key': apiKey ,
                 'query': search ,
-                'language': 'pt',
+                'language': 'en',
             },
             'success': function(data){
                 var movies = data.results
                 //con il ciclo for recupero gli oggetti dentro l'array
                 for (var i = 0; i < movies.length; i++) {
                     var moviesResults = movies[i]
+                    console.log(moviesResults);
                     //dall'OGGETTO prendo le informazioni che mi servono
                     var nameMovie = moviesResults.title;
                     var originalName = moviesResults.original_title;
@@ -54,7 +55,8 @@ function search() {
                         'title': movies[i].title,
                         'title-original': originalName,
                         'original-language': flags(originalLg),
-                        'average-vote': rating(averageVote)
+                        'average-vote': rating(averageVote) ,
+                        'overview': overview(moviesResults.overview) ,
                     };
                     //append handlebars
                     var html = template(context);
@@ -90,7 +92,8 @@ function search() {
                         'title': nameSerie,
                         'title-original': originalNameSerie,
                         'original-language': flags(originalLg) ,
-                        'average-vote': rating(averageVote)
+                        'average-vote': rating(averageVote) ,
+                        'overview': overview(seriesResults.overview)
                     };
                     var html = template(context);
                     //appendo con Handlebars
@@ -145,3 +148,11 @@ function poster(urlposter){
     }
         return 'image not available';
 };
+
+//Overview
+function overview(text){
+    if (text == '') {
+        return 'is not available'
+    }
+    return text
+}
