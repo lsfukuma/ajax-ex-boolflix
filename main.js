@@ -92,29 +92,17 @@ function searchMovie() {
                     var originalName = moviesResults.original_title;
                     var originalLg = moviesResults.original_language;
                     var averageVote = moviesResults.vote_average;
-                    console.log(nameMovie);
-                    console.log(originalName);
-                    console.log(originalLg);
-                    console.log(averageVote);
-                    // ----- Stelle di ranking
-                    averageVote = Math.round( averageVote / 2 );
+                    // console.log(nameMovie);
+                    // console.log(originalName);
+                    // console.log(originalLg);
+                    // console.log(averageVote);
                     //Handlebars
                     var context = {
                         'title': nameMovie,
                         'title-original': originalName,
-                        'original-language': originalLg ,
+                        'original-language': flags(originalLg),
                         'average-vote': averageVote + rating(averageVote)
                     };
-                    //-----LINGUA e bandiere
-                    if (originalLg == 'en') {
-                        $('.flag-country').attr('src', '<img  src="img/en.svg" />')
-                    } else if (originalLg =='fr') {
-                        $('.flag-country').attr('<img  src="img/fr.svg" />')
-                    } else if (originalLg == 'it') {
-                        $('.flag-country').attr('<img  src="img/it.svg" />')
-                    } else {
-                        originalLg
-                    }
                     //append handlebars
                     var html    = template(context);
                     $('.container').append(html)
@@ -138,22 +126,25 @@ function resetInput(){
 
 //genera stelle ranking
 function rating(vote){
-    var vote = '';
-    var starSolide = '';
-    for (var i = 0; i < vote; i++) {
-        starSolide += '<i class="fas fa-star"></i>'
+    var vote = Math.round( vote / 2 ) ;
+    var starFull = '';
+    for (var i = 1; i <= vote; i++) {
+        starFull+= '<i class="fas fa-star"></i>'
     }
 
     var star = '';
     for (var i = 0; i < (5 - vote); i++) {
         star += '<i class="far fa-star"></i>'
     }
-    return starSolide + star
-}
+    return starFull + star
+};
 
-function flags(){
-    var languages = ['en', 'fr' , 'it']
-    if(languages.includes(originalLg)){
-        return
+//funzione per aggiungere le bandiere disponibili
+function flags(language){
+    var flagsLanguage = ['en', 'fr' , 'it']
+    if(flagsLanguage.includes(language)){
+        return '<img src="img/' + language + '.svg" alt="">';
+    } else {
+    return language;
     }
-}
+};

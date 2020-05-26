@@ -7,7 +7,7 @@
 header {
     height: 100px;
     width: 100%;
-    background-color: darkgray;
+    background-color: black;
     display: flex;
     padding: 0 20px;
     justify-content: space-between;
@@ -31,10 +31,11 @@ main {
 }
 
 ul {
-    width: 200px;
+    width: 300px;
     height: 400px;
-    border: 1px solid lightgray;
+    border: 1px solid darkgray;
     list-style: none;
+    background-color: black;
 
 }
 
