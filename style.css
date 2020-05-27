@@ -21,6 +21,18 @@ header h1 {
     color: red;
 }
 
+header button {
+    padding: 5px;
+    border-radius: 5px;
+    background: red;
+    border: 2px solid black;
+}
+
+header input {
+    border: 2px solid black;
+    padding: 5px;
+}
+
 main {
     height: 100%;
     min-height: 100vh;
@@ -42,7 +54,7 @@ ul {
 }
 
 .flip-card {
-    width: 300px;
+    width: 342px;
     height: 400px;
     background-color: transparent;
     padding: 1%;
@@ -61,7 +73,6 @@ ul {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* box-shadow: 0 4px 4px 0 rgba(242,242,242,0.6); */
     color: white;
 }
 
@@ -69,21 +80,22 @@ ul {
     transform: rotateY(180deg);
 }
 
-.card-img , .flip-card-back {
+.card-img  {
     width: 100%;
     height: 100%;
+    background-color: #141414;
+    color: white;
     backface-visibility: hidden;
     position: absolute;
 }
 
-.card-img {
-    background-color: #141414;
-    color: white;
-}
-
 .flip-card-back {
+    width: 100%;
+    height: 100%;
     background-color: #141414;
     color: white;
+    backface-visibility: hidden;
+    position: absolute;
     transform: rotateY(180deg);
 }
 
@@ -96,7 +108,7 @@ ul {
 li {
     color: white;
     padding: 5px 0;
-    overflow-y: hidden;
+    overflow: hidden;
     text-align: justify;
     text-overflow: ellipsis;
 }
@@ -104,7 +116,3 @@ li {
 .fas {
     color: gold;
 }
-
-/* .overview {
-    text-overflow: ellipsis;
-} */

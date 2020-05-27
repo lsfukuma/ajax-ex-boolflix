@@ -1,4 +1,4 @@
-//
+//api key e url tmdb per la chiamata ajax
 var ajaxUrl = 'https://api.themoviedb.org/3/'
 var apiKey = '239041d19fa5a16a25dff0efb29a6dec'
 
@@ -13,10 +13,6 @@ $('.input-search').keyup(function(event){
         search();
     }
 });
-
-//quando vado sulla copertina
-// $('.image-result').mouseenter()
-
 
 //handlebars
 var source   = $("#results-template").html();
@@ -113,8 +109,33 @@ function resetInput(){
     //svuoto l'input
     $('.input-search').val('');
     //svuoto il html per la prossima ricerca
-    $('.card').empty();
+    $('.container').empty();
 }
+
+// function makeCard(){
+//     var series = serie.results
+//     //con il ciclo for recupero gli oggetti dentro l'array
+//     for (var i = 0; i < series.length; i++) {
+//         var seriesResults = series[i]
+//         //dall'OGGETTO prendo le informazioni che mi servono
+//         var nameSerie = seriesResults.name;
+//         var originalNameSerie = seriesResults.original_name;
+//         var originalLg = seriesResults.original_language;
+//         var averageVote = seriesResults.vote_average;
+//         var posterSerie = seriesResults.poster_path
+//         var context = {
+//             'poster': poster(posterSerie) ,
+//             'title': nameSerie,
+//             'title-original': originalNameSerie,
+//             'original-language': flags(originalLg) ,
+//             'average-vote': rating(averageVote) ,
+//             'overview': overview(seriesResults.overview)
+//         };
+//         var html = template(context);
+//         //appendo con Handlebars
+//         $('.container').append(html)
+//     } //ciclo for
+// };
 
 //genera stelle ranking
 function rating(vote){
@@ -137,22 +158,23 @@ function flags(language){
     if(flagsLanguage.includes(language)){
         return '<img src="img/' + language + '.svg" alt="">';
     }
-    return language;
+    return language.toUpperCase();
 };
 
 //funzione per i poster
-function poster(urlposter){
-    var posterUrl = 'https://image.tmdb.org/t/p/w300'
-    if (urlposter != null) {
-        return  posterUrl + urlposter;
+function poster(urlposter) {
+    var posterUrl = 'https://image.tmdb.org/t/p/'
+    var posterSize = 'w342'
+    if (urlposter !== null) {
+        return  posterUrl + posterSize + urlposter;
     }
-        return 'image not available';
+        return '<img src="img/poster_not_available.jpg" alt="">';
 };
 
 //Overview
 function overview(text){
     if (text == '') {
-        return 'is not available'
+        return 'is not available';
     }
-    return text
-}
+    return text;
+};
