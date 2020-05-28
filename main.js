@@ -31,33 +31,10 @@ function search() {
             'data': {
                 'api_key': apiKey ,
                 'query': search ,
-                'language': 'en',
+                'language': 'pt',
             },
-            'success': function(data){
-                var movies = data.results
-                //con il ciclo for recupero gli oggetti dentro l'array
-                for (var i = 0; i < movies.length; i++) {
-                    var moviesResults = movies[i]
-                    console.log(moviesResults);
-                    //dall'OGGETTO prendo le informazioni che mi servono
-                    var nameMovie = moviesResults.title;
-                    var originalName = moviesResults.original_title;
-                    var originalLg = moviesResults.original_language;
-                    var averageVote = moviesResults.vote_average;
-                    var posterMovie = moviesResults.poster_path
-                    //Handlebars
-                    var context = {
-                        'poster': poster(posterMovie),
-                        'title': movies[i].title,
-                        'title-original': originalName,
-                        'original-language': flags(originalLg),
-                        'average-vote': rating(averageVote) ,
-                        'overview': overview(moviesResults.overview) ,
-                    };
-                    //append handlebars
-                    var html = template(context);
-                    $('.container').append(html)
-                } //ciclo for
+            'success': function(movies){
+                apiAnswer(movies, 'movies')
             },
             'error': function(){
                 alert('error')
@@ -73,28 +50,8 @@ function search() {
                 'language': 'pt' ,
             },
             'success': function(serie){
-                var series = serie.results
-                //con il ciclo for recupero gli oggetti dentro l'array
-                for (var i = 0; i < series.length; i++) {
-                    var seriesResults = series[i]
-                    //dall'OGGETTO prendo le informazioni che mi servono
-                    var nameSerie = seriesResults.name;
-                    var originalNameSerie = seriesResults.original_name;
-                    var originalLg = seriesResults.original_language;
-                    var averageVote = seriesResults.vote_average;
-                    var posterSerie = seriesResults.poster_path
-                    var context = {
-                        'poster': poster(posterSerie) ,
-                        'title': nameSerie,
-                        'title-original': originalNameSerie,
-                        'original-language': flags(originalLg) ,
-                        'average-vote': rating(averageVote) ,
-                        'overview': overview(seriesResults.overview)
-                    };
-                    var html = template(context);
-                    //appendo con Handlebars
-                    $('.container').append(html)
-                } //ciclo for
+                apiAnswer(serie , 'serie')
+
             },
             'error': function(){
                 alert('error')
@@ -112,30 +69,43 @@ function resetInput(){
     $('.container').empty();
 }
 
-// function makeCard(){
-//     var series = serie.results
-//     //con il ciclo for recupero gli oggetti dentro l'array
-//     for (var i = 0; i < series.length; i++) {
-//         var seriesResults = series[i]
-//         //dall'OGGETTO prendo le informazioni che mi servono
-//         var nameSerie = seriesResults.name;
-//         var originalNameSerie = seriesResults.original_name;
-//         var originalLg = seriesResults.original_language;
-//         var averageVote = seriesResults.vote_average;
-//         var posterSerie = seriesResults.poster_path
-//         var context = {
-//             'poster': poster(posterSerie) ,
-//             'title': nameSerie,
-//             'title-original': originalNameSerie,
-//             'original-language': flags(originalLg) ,
-//             'average-vote': rating(averageVote) ,
-//             'overview': overview(seriesResults.overview)
-//         };
-//         var html = template(context);
-//         //appendo con Handlebars
-//         $('.container').append(html)
-//     } //ciclo for
-// };
+function apiAnswer(data , type){
+    var data = data.results
+    //con il ciclo for recupero gli oggetti dentro l'array
+    for (var i = 0; i < data.length; i++) {
+        var dataResults = data[i]
+        makeCard(dataResults, type)
+    };
+}
+
+function makeCard(dataResults, typeMedia){
+    //controllo: serie o film
+    if (typeMedia == 'serie') {
+        var title = dataResults.name ;
+        var originalName = dataResults.original_name ;
+    } else {
+        //per film
+        var title = dataResults.title ;
+        var originalName = dataResults.original_title ;
+    }
+
+    //dall'OGGETTO prendo le informazioni che mi servono
+    var originalLg = dataResults.original_language;
+    var averageVote = dataResults.vote_average;
+    var img = dataResults.poster_path
+    var context = {
+        'poster': poster(img) ,
+        'title': title,
+        'title-original': originalName,
+        'original-language': flags(originalLg) ,
+        'average-vote': rating(averageVote) ,
+        'overview': overview(dataResults.overview)
+    };
+    var html = template(context);
+    //appendo con Handlebars
+    $('.container').append(html)
+
+};
 
 //genera stelle ranking
 function rating(vote){
