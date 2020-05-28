@@ -138,13 +138,13 @@ function poster(urlposter) {
     if (urlposter !== null) {
         return  posterUrl + posterSize + urlposter;
     }
-        return '<img src="img/poster_not_available.jpg" alt="">';
+        return 'img/poster_not_available.jpg';
 };
 
 //Overview
 function overview(text){
     if (text == '') {
-        return 'is not available';
+        return 'não disponível';
     }
     return text;
 };
