@@ -98,6 +98,7 @@ ul {
     backface-visibility: hidden;
     position: absolute;
     transform: rotateY(180deg);
+    overflow: hidden;
 }
 
 .flag-country img {
@@ -114,8 +115,4 @@ li {
 
 .fas {
     color: gold;
-}
-
-.overview {
-    overflow: hidden;
 }
